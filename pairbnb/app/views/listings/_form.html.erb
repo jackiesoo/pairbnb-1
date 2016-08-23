@@ -1,0 +1,31 @@
+<div class="text-field">
+  <%= form.label :place_name %>
+  <%= form.text_field :place_name %><br>
+
+  <%= form.label :place_type %>
+  <%= form.text_field :place_type %><br>
+
+  <%= form.label :bedroom %>
+  <%= form.select :bedroom, (1..10).to_a %><br>
+
+  <%= form.label :bath %>
+  <%= form.text_field :bath %><br>
+
+  <%= form.label :amenity %>
+  <%= form.text_field :amenity %><br>
+
+  <%= form.label :cost_per_night %>
+  <%= form.text_field :cost_per_night %><br>
+
+  <%= form.label :description %>
+  <%= form.text_field :description %><br>
+
+  <%= form.file_field :avatars, multiple: true %>
+
+</div>
+<div class="submit-field">
+  <%= form.submit %>
+</div>
+
+
+

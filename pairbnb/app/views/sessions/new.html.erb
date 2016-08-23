@@ -1,0 +1,20 @@
+<div id="clearance" class="sign-in">
+  <h2><%= t(".title") %></h2>
+
+  <%= render partial: '/sessions/form' %>
+
+
+  <div id="flash">
+  <% flash.each do |key, value| %>
+  <div class="flash <%= key %>"><%= value %></div>
+  <% end %>
+</div>
+
+<%= link_to "Connect With Facebook", "/auth/facebook" %>
+
+
+</div>
+
+
+
+

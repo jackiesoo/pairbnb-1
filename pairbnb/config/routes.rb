@@ -1,4 +1,64 @@
 Rails.application.routes.draw do
+
+  
+  root 'welcome#index'
+
+  
+
+  # *** rails g clearance:routes show all these default Clearance routes
+  resources :passwords, controller: "clearance/passwords", only: [:create, :new]
+  resource :session, controller: "clearance/sessions", only: [:create]
+  resources :users, controller: "users", only: :show
+  resources :users, controller: "clearance/users", only: [:create] do
+    resource :password,
+      controller: "clearance/passwords",
+      only: [:create, :edit, :update]
+
+  end
+  get "/sign_in" => "clearance/sessions#new", as: "sign_in"
+  delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
+  get "/sign_up" => "clearance/users#new", as: "sign_up"
+  get '/search', to: 'listings#search'
+  #*** end of default routes of Clearance
+
+  
+
+
+  resources :listings, only: [:index, :edit, :show, :update, :destroy]
+
+  resources :listings do
+    resources :reservations, only: [:new, :create]
+  end
+
+  resources :users do
+    resources :reservations, only: [:index, :destroy]
+  end
+
+  resources :reservations, only: [:index, :edit, :show, :update, :destroy]
+  
+  
+  resources :payments, only: [:new, :create]
+  
+
+  get "/auth/:provider/callback" => "sessions#create_from_omniauth"
+
+  get '/preload' => 'reservations#preload'
+
+
+
+ 
+  end
+
+
+
+
+
+  
+
+
+
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -53,4 +113,4 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-end
+

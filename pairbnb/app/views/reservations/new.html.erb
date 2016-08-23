@@ -1,0 +1,8 @@
+<div>
+  <h2><%= t(".title") %></h2>
+  
+  <%= form_for @reservation, url: {action: "create"} do |form| %>
+    <%= render partial: '/reservations/form', object: form %>
+
+  <% end %>
+</div>

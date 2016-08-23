@@ -1,0 +1,13 @@
+<% reservations =  Reservation.where(user_id: params[:user_id]) %>
+<% reservations.each do |r| %>
+<tr>
+	<td><%= "Your Booking: #{r.listing.place_name}" %></td><br>
+	<td><%= "Start Date: #{r.start_date}" %></td><br>
+	<td><%= "End Date: #{r.end_date}" %></td><br>
+	<td><%= link_to "delete", "/reservations/#{r.id}", method: :delete, data: {confirm: 'Are you sure?'} %></td><br><br>
+<% end %>
+
+
+
+
+

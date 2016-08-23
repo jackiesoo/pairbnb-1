@@ -1,0 +1,21 @@
+
+<% @listing.avatars.each do |i| %>
+	<%= image_tag (i.medium.url) %><br>	
+<% end %>
+
+<%= "place name: #{@listing.place_name}" %></br>
+<%= "place type: #{@listing.place_type}" %></br>
+<%= "address: #{@listing.address}" %></br>
+<%= "bedroom: #{@listing.bedroom}" %></br>
+<%= "bath: #{@listing.bath}" %></br>
+<%= "amenity: #{@listing.amenity}" %></br>
+<%= "cost per night: #{@listing.cost_per_night}" %></br>
+<%= "description: #{@listing.description}" %></br>
+<%= link_to "edit", "/listings/#{@listing.id}/edit" %></br>
+<%= link_to "delete", "/listings/#{@listing.id}", method: :delete, data: {confirm: 'Are you sure?'} %><br>
+<% if @listing.user_id != current_user.id %>
+	<%= link_to "book it", new_listing_reservation_path(@listing) %>
+<% end %>
+
+
+

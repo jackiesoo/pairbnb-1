@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-2">
+    <ul class="sidebar-list">
+     <li class="sidebar-item"><%= link_to "New Listing", new_listing_path, class:"sidebar-link"%></li>
+      <li class="sidebar-item"><%= link_to "Your Listing", listings_path, class:"sidebar-link active"%></li>
+      <li class="sidebar-item"><%= link_to "Your Reservations", user_reservations_path(current_user), class:"sidebar-link"%></li>
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Listings
+      </div>
+      <div class="panel-body">
+        <% @listings.each do |listing| %>
+          <div class="row">
+            <div class="col-md-2">
+      
+            </div>
+            <div class="col-md-7">
+              <h4><%= listing.place_name %></h4>
+            </div>
+
+            <% if listing.avatars.count != 0 %>
+
+              <%= image_tag listing.avatars.first.medium.url %>
+            <% end %>
+
+            <div class="col-md-3 right">
+              <%= link_to "Update", edit_listing_path(listing), class: "btn btn-primary"%>
+
+            <div class="col-md-5 right">
+              <%= link_to "Delete", "/listings/#{listing.id}", class: "btn btn-primary", method: :delete, data: {confirm: 'Are you sure?'} %>
+            </div>
+          </div>
+          <hr/>
+        <% end %>
+      </div>
+    </div>
+  </div>  
+</div>
+
+
+<% if @listings[0].nil? %> 
+  <h2> You have yet to list any property with us! </h2>
+<% else %>
+  <table class="table table-striped">
+  <tr>
+      <th> index </th>
+      <th> place name </th>
+      <th> place type </th>
+      <th> address </th>
+      <th> bedroom </th>
+      <th> bath </th>
+      <th> amenity </th>
+      <th> cost per night </th>
+      <th> description </th>
+  </tr>
+  <% @listings.each_with_index do |l, index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= l.place_name %></td>
+      <td><%= l.place_type %></td>
+      <td><%= l.address %></td>
+      <td><%= l.bedroom %></td>
+      <td><%= l.bath %></td>
+      <td><%= l.amenity %></td>
+      <td><%= l.cost_per_night %></td>
+      <td><%= l.description %></td>
+      <td><%= link_to "view", "/listings/#{l.id}" %></td>
+      <td><%= link_to "edit", "/listings/#{l.id}/edit" %></td>
+      <td><%= link_to "delete", "/listings/#{l.id}", method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      <td><%= link_to "reserve", "/listings/#{l.id}/reservations/new" %></td>
+
+    </tr>
+  <% end %>
+  </table>
+<% end %>
